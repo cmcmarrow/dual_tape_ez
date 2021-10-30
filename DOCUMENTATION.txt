@@ -1,4 +1,3 @@
-{{WIP}}
 {{Lowercase}}
 '''dual tape ez''' is a simple tape machine. Every cell holds an instruction and a number.
 
@@ -91,7 +90,7 @@
 |-
 | style="vertical-align: top"| <code><nowiki>Write</nowiki></code>
 | style="vertical-align: top"| <code><span style="color:red"><nowiki>w</nowiki></span></code>
-| style="vertical-align: top"| current value in memory = item_1
+| style="vertical-align: top"| current location in memory = item_1
 |-
 | style="vertical-align: top"| <code><nowiki>Write Dynamic</nowiki></code>
 | style="vertical-align: top"| <code><span style="color:red"><nowiki>e</nowiki></span></code>
@@ -148,10 +147,48 @@ A single memory cell holds two items, instruction and data. The default instruct
 
 == Programs ==
 === [[truth-machine]] ===
- # TODO
+ @ i # Truth Machine
+ r @zero
+ z
+ @one_loop r 1
+ n
+ j @one_loop
+ @zero r 0
+ n
+ h
 
 === Hello World ===
- # TODO
+ @hello_str . cH # Hello World
+ . ce
+ . cl
+ . cl
+ . co
+ . 32
+ . cW
+ . co
+ . cr
+ . cl
+ . cd
+ . c!
+ . 10
+ . 0
+
+ @ r @ptr
+ t
+ t
+ r @exit
+ z
+ r @ptr
+ t
+ t
+ c
+ r @ptr
+ t
+ r 1
+ a
+ @ptr w @hello_str
+ j @
+ @exit h
 
 [[Category:Implemented]]
 [[Category:Languages]]
