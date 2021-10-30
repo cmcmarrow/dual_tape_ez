@@ -18,7 +18,6 @@ class VMState:
     inputs: Optional[Union[Tuple[str, ...], List[str]]]
     sys_output: bool
     output_stream: Optional[List[str]]
-    operations: List[Callable[["VMState"], None]]
     halt: bool = False
     item1: int = 0
     item2: int = 0
@@ -283,8 +282,33 @@ def write_dynamic_instruction(vmstate: VMState) -> None:
     vmstate.pc += 1
 
 
-INSTRUCTIONS: Dict[int, Callable[[VMState], None]] = {ord("n"): next_instruction,
-                                                      ord("x"): execute}
+def nop(vmstate: VMState) -> None:
+    """
+    info: NOP No operation performed.
+    :param vmstate: VMState
+    :return: None
+    """
+    pass
+
+
+INSTRUCTIONS: Dict[int, Callable[[VMState], None]] = {ord("h"): halt,
+                                                      ord("n"): out_number,
+                                                      ord("c"): out_character,
+                                                      ord("i"): in_number,
+                                                      ord("o"): in_character,
+                                                      ord("a"): add,
+                                                      ord("s"): subtract,
+                                                      ord("j"): jump,
+                                                      ord("k"): jump_dynamic,
+                                                      ord("z"): jump_zero,
+                                                      ord("g"): jump_greater,
+                                                      ord("r"): read,
+                                                      ord("t"): read_dynamic,
+                                                      ord("y"): read_dynamic_instruction,
+                                                      ord("w"): write,
+                                                      ord("e"): write_dynamic,
+                                                      ord("d"): write_dynamic_instruction,
+                                                      ord("."): nop}
 
 
 def vm(entry_point: int,
@@ -316,24 +340,7 @@ def vm(entry_point: int,
                        data,
                        inputs,
                        sys_output,
-                       output_stream,
-                       [halt,
-                        out_number,
-                        out_character,
-                        in_number,
-                        in_character,
-                        add,
-                        subtract,
-                        jump,
-                        jump_dynamic,
-                        jump_zero,
-                        jump_greater,
-                        read,
-                        read_dynamic,
-                        read_dynamic_instruction,
-                        write,
-                        write_dynamic,
-                        write_dynamic_instruction])
+                       output_stream)
     yield vm_state
     while not vm_state.halt:
         log.log("PC: {}, I: {}, M: {}, i: {}, i2: {}".format(vm_state.pc,
