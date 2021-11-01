@@ -1,0 +1,8 @@
+@stop h
+@bad_stop h
+@ r 1
+r @bad_stop
+z
+r 0
+r @stop
+z

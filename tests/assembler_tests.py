@@ -21,7 +21,7 @@ class AssemblerTests(unittest.TestCase):
         entry_point, instructions, data = assembler(get_path("full_load.dte"))
         self.assertEqual(entry_point, 7)
 
-        for spot, i in enumerate("nxnnxnxnnnxnxnnxx"):
+        for spot, i in enumerate("werdtyhniojkgzhhr"):
             self.assertEqual(instructions[spot], ord(i))
 
         self.assertNotIn(0, data)

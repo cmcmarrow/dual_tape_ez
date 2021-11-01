@@ -1,0 +1,11 @@
+@stop h
+@bad_stop h
+@ r 0
+r @bad_stop
+g
+r -275839040
+r @bad_stop
+g
+r 1
+r @stop
+g
