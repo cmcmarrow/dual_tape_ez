@@ -288,7 +288,7 @@ def nop(vmstate: VMState) -> None:
     :param vmstate: VMState
     :return: None
     """
-    pass
+    vmstate.pc += 1
 
 
 INSTRUCTIONS: Dict[int, Callable[[VMState], None]] = {ord("h"): halt,
